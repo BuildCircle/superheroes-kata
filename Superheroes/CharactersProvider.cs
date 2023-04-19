@@ -10,12 +10,12 @@ namespace Superheroes
         readonly HttpClient _client = new HttpClient();
         
 
-        public async Task<CharactersResponse> GetCharacters()
+        public async Task<CharacterResponse> GetCharacters()
         {
             var response = await _client.GetAsync(CharactersUri);
 
             var responseJson = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<CharactersResponse>(responseJson);
+            return JsonConvert.DeserializeObject<CharacterResponse>(responseJson);
         }
     }
 }

@@ -7,36 +7,33 @@ namespace Superheroes.Controllers
     public class BattleController : Controller
     {
         private readonly ICharactersProvider _charactersProvider;
-        private static CharacterResponse _character1;
-        private static CharacterResponse _character2;
 
         public BattleController(ICharactersProvider charactersProvider)
         {
             _charactersProvider = charactersProvider;
         }
 
-        public async Task<IActionResult> Get(string hero, string villain)
+        public async Task<IActionResult> Get(string heroName, string villainName)
         {
             var characters = await _charactersProvider.GetCharacters();
+
+            var hero = new Character();
+            var villain = new Character();
             
+            //Refactor foreach to linq
             foreach(var character in characters.Items)
             {
-                if(character.Name == hero)
+                if(character.Name == heroName)
                 {
-                    _character1 = character;
+                    hero = character;
                 }
-                if(character.Name == villain)
+                if(character.Name == villainName)
                 {
-                    _character2 = character;
+                    villain = character;
                 }
             }
 
-            if(_character1.Score > _character2.Score)
-            {
-                return Ok(_character1);
-            }
-
-            return Ok(_character2);
+            return Ok(hero.Score > villain.Score ? hero : villain);
         }
     }
 }

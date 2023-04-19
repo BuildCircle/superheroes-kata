@@ -4,14 +4,14 @@ namespace Superheroes.Tests
 {
     public class FakeCharactersProvider : ICharactersProvider
     {
-        CharactersResponse _response;
+        CharacterResponse _response;
         
-        public void FakeResponse(CharactersResponse response)
+        public void FakeResponse(CharacterResponse response)
         {
             _response = response;
         }
 
-        public Task<CharactersResponse> GetCharacters()
+        public Task<CharacterResponse> GetCharacters()
         {
             return Task.FromResult(_response);
         }

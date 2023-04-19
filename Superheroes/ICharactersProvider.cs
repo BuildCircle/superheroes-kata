@@ -4,6 +4,6 @@ namespace Superheroes
 {
     public interface ICharactersProvider
     {
-        Task<CharactersResponse> GetCharacters();
+        Task<CharacterResponse> GetCharacters();
     }
 }

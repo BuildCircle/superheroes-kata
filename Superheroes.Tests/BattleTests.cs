@@ -26,17 +26,17 @@ namespace Superheroes.Tests
             var testServer = new TestServer(startup);
             var client = testServer.CreateClient();
 
-            charactersProvider.FakeResponse(new CharactersResponse
+            charactersProvider.FakeResponse(new CharacterResponse
             {
                 Items = new []
                 {
-                    new CharacterResponse
+                    new Character
                     {
                         Name = "Batman",
                         Score = 8.3,
                         Type = "hero"
                     },
-                    new CharacterResponse
+                    new Character
                     {
                         Name = "Joker",
                         Score = 8.2,
@@ -45,7 +45,7 @@ namespace Superheroes.Tests
                 }
             });
 
-            var response = await client.GetAsync("battle?hero=Batman&villain=Joker");
+            var response = await client.GetAsync("battle?heroName=Batman&villainName=Joker");
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var responseJson = await response.Content.ReadAsStringAsync();
